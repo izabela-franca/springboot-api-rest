@@ -70,15 +70,15 @@ public class GreetingsController {
 
 	@DeleteMapping(value = "deletar")
 	@ResponseBody
-	public ResponseEntity<String> deletar(@RequestParam Long idUser) {
-		usuarioRepository.deleteById(idUser);
+	public ResponseEntity<String> deletar(@RequestParam Long iduser) {
+		usuarioRepository.deleteById(iduser);
 		return new ResponseEntity<String>("Usuário deletado com sucesso!", HttpStatus.OK);
 	}
 
 	@GetMapping(value = "buscarUserId")
 	@ResponseBody
-	public ResponseEntity<Usuario> buscarUserId(@RequestParam(name = "idUser") Long idUser) {
-		Usuario usuario = usuarioRepository.findById(idUser).get();
+	public ResponseEntity<Usuario> buscarUserId(@RequestParam(name = "iduser") Long iduser) {
+		Usuario usuario = usuarioRepository.findById(iduser).get();
 		return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);
 	}
 

@@ -7,7 +7,7 @@
 	rel="stylesheet"
 	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
 	crossorigin="anonymous">
-<title>Insert title here</title>
+<title>Spring Boot Rest API</title>
 </head>
 <body>
 
@@ -34,35 +34,48 @@
 	<button type="button" class="btn btn-success"
 		onclick="document.getElementById('formCadastroUser').reset();">Novo</button>
 	<button type="button" class="btn btn-primary" onclick="salvarUsuario()">Salvar</button>
-	<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalPesquisaUser">Pesquisar</button>
+	<button type="button" class="btn btn-secondary" data-bs-toggle="modal"
+		data-bs-target="#modalPesquisarUser">Pesquisar</button>
 
 
 
-	<div class="modal fade" id="#modalPesquisaUser" tabindex="-1"
+	<div class="modal fade" id="modalPesquisarUser" tabindex="-1"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">New message</h5>
+					<h5 class="modal-title" id="exampleModalLabel">Pesquisar
+						Usuário</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal"
 						aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
 					<form>
 						<div class="mb-3">
-							<label for="recipient-name" class="col-form-label">Recipient:</label>
-							<input type="text" class="form-control" id="recipient-name">
+							<label for="nomeBusca" class="col-form-label">Informe o
+								nome:</label> <input type="text" class="form-control" id="nomeBusca">
 						</div>
-						<div class="mb-3">
-							<label for="message-text" class="col-form-label">Message:</label>
-							<textarea class="form-control" id="message-text"></textarea>
-						</div>
+						<button type="button" class="btn btn-success"
+							onclick="pesquisarUsuario()">Buscar</button>
 					</form>
+
+					<table class="table" id="tabelaResultados">
+						<thead>
+							<tr>
+								<th scope="col">ID</th>
+								<th scope="col">Nome</th>
+								<th scope="col">Editar</th>
+							</tr>
+						</thead>
+						<tbody>
+
+						</tbody>
+					</table>
+
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary"
-						data-bs-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary">Send message</button>
+						data-bs-dismiss="modal">Fechar</button>
 				</div>
 			</div>
 		</div>
@@ -78,6 +91,54 @@
 		crossorigin="anonymous"></script>
 
 	<script>
+		function pesquisarUsuario() {
+			var nome = $('#nomeBusca').val();
+
+			if (nome != null && nome.trim() != '') {
+				$
+						.ajax(
+								{
+									method : "GET",
+									url : "buscarPorNome",
+									data : "name" + name,
+									success : function(response) {
+										$('#tabelaResultados > tbody > tr')
+												.remove();
+										for (var i = 0; i < response.length; i++) {
+											$('#tabelaResultados > tbody')
+													.append(
+															'<tr><td>'
+																	+ response[i].id
+																	+ '</td><td>'
+																	+ response[i].nome
+																	+ '</td><td><button type="button" onclick="colocarEmEdicao('
+																	+ response[i].id
+																	+ ')" class="btn btn-primary">Visualizar</button></td></tr>');
+										}
+									}
+								}).fail(function(xhr, status, errorThrown) {
+							alert("Erro ao buscar: " + xhr.responseText);
+						});
+			}
+		}
+
+		function colocarEmEdicao(id) {
+			$.ajax({
+				method : "GET",
+				url : "buscarUserId",
+				data : "iduser" + id,
+				success : function(response) {
+					$("#id").val(response.id);
+					$("#nome").val(response.nome);
+					$("#email").val(response.email);
+
+					$('#modalPesquisarUser').modal('hide');
+				}
+			}).fail(function(xhr, status, errorThrown) {
+				alert("Erro ao buscar usuário por ID: " + xhr.responseText);
+			});
+		}
+
 		function salvarUsuario() {
 			var id = $("#id").val();
 			var nome = $("#nome").val();
