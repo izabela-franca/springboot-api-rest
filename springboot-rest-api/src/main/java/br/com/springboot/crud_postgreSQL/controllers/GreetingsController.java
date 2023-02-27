@@ -36,24 +36,7 @@ public class GreetingsController {
 	 * @param name the name to greet
 	 * @return greeting text
 	 */
-	@RequestMapping(value = "/mostrarnome/{name}", method = RequestMethod.GET)
-	@ResponseStatus(HttpStatus.OK)
-	public String greetingText(@PathVariable String name) {
-		return "Mey primeiro CRUD Spring Boot API: " + name + "!";
-	}
-
-	@RequestMapping(value = "/olamundo/{nome}", method = RequestMethod.GET)
-	@ResponseStatus(HttpStatus.OK)
-	public String retornarOlaMundo(@PathVariable String nome) {
-
-		Usuario usuario = new Usuario();
-		usuario.setNome(nome);
-
-		usuarioRepository.save(usuario);
-
-		return "Olá, mundo: " + nome;
-	}
-
+	
 	@GetMapping(value = "listar")
 	@ResponseBody
 	public ResponseEntity<List<Usuario>> listaUsuarios() {
