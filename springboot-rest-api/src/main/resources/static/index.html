@@ -8,6 +8,13 @@
 	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
 	crossorigin="anonymous">
 <title>Spring Boot Rest API</title>
+
+<style>
+html {
+	margin: 5%;
+}
+</style>
+
 </head>
 <body>
 
@@ -36,7 +43,8 @@
 	<button type="button" class="btn btn-primary" onclick="salvarUsuario()">Salvar</button>
 	<button type="button" class="btn btn-secondary" data-bs-toggle="modal"
 		data-bs-target="#modalPesquisarUser">Pesquisar</button>
-	<button type="button" class="btn btn-danger" onclick="botaoDeletarTelaPrincipal()">Deletar</button>
+	<button type="button" class="btn btn-danger"
+		onclick="botaoDeletarTelaPrincipal()">Deletar</button>
 
 
 
@@ -60,19 +68,22 @@
 							onclick="pesquisarUsuario()">Buscar</button>
 					</form>
 
-					<table class="table" id="tabelaResultados">
-						<thead>
-							<tr>
-								<th scope="col">ID</th>
-								<th scope="col">Nome</th>
-								<th scope="col">Editar</th>
-								<th scope="col">Deletar</th>
-							</tr>
-						</thead>
-						<tbody>
+					<div style="height:350px; overflow: scroll">
+						<table class="table" id="tabelaResultados">
+							<thead>
+								<tr>
+									<th scope="col">ID</th>
+									<th scope="col">Nome</th>
+									<th scope="col">Editar</th>
+									<th scope="col">Deletar</th>
+								</tr>
+							</thead>
+							<tbody>
 
-						</tbody>
-					</table>
+							</tbody>
+						</table>
+					</div>
+
 
 				</div>
 				<div class="modal-footer">
@@ -149,6 +160,18 @@
 			var id = $("#id").val();
 			var nome = $("#nome").val();
 			var email = $("#email").val();
+			
+			if(nome == null || nome != null && nome.trim() == '') {
+				$('#nome').focus();
+				alert("Informe o nome.")
+				return;
+			}
+			
+			if(email == null || email != null && email.trim() == '') {
+				$('#email').focus();
+				alert("Informe o e-mail.")
+				return;
+			}
 
 			$.ajax({
 				method : "POST",
@@ -185,11 +208,14 @@
 						});
 			}
 		}
-		
+
 		function botaoDeletarTelaPrincipal() {
 			var id = $('#id').val();
-			deletarUsuario(id)
-			document.getElementById('formCadastroUser').reset();
+			if (id != null && id.trim() != '') {
+				deletarUsuario(id)
+				document.getElementById('formCadastroUser').reset();
+			}
 		}
+		
 	</script>
 </body>
