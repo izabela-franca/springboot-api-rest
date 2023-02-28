@@ -58,13 +58,6 @@ public class GreetingsController {
 		return new ResponseEntity<String>("Usuário deletado com sucesso!", HttpStatus.OK);
 	}
 
-	@GetMapping(value = "buscarUserId")
-	@ResponseBody
-	public ResponseEntity<Usuario> buscarUserId(@RequestParam(name = "iduser") Long iduser) {
-		Usuario usuario = usuarioRepository.findById(iduser).get();
-		return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);
-	}
-
 	@PutMapping(value = "atualizar")
 	@ResponseBody
 	public ResponseEntity<?> atualizar(@RequestBody Usuario usuario) {
@@ -75,6 +68,13 @@ public class GreetingsController {
 
 		Usuario user = usuarioRepository.saveAndFlush(usuario);
 		return new ResponseEntity<Usuario>(user, HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "buscarUserId")
+	@ResponseBody
+	public ResponseEntity<Usuario> buscarUserId(@RequestParam(name = "iduser") Long iduser) {
+		Usuario usuario = usuarioRepository.findById(iduser).get();
+		return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);
 	}
 	
 	@GetMapping(value = "buscarPorNome")
