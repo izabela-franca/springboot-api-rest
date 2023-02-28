@@ -40,6 +40,7 @@ O projeto foi desenvolvido utilizando as seguintes tecnologias/ferramentas:
 - Spring Boot
 - Maven
 - Apache Tomcam
+- PostgreSQL
 
 
 
