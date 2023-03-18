@@ -30,12 +30,6 @@ public class GreetingsController {
 
 	@Autowired
 	private UsuarioRepository usuarioRepository;
-
-	/**
-	 *
-	 * @param name the name to greet
-	 * @return greeting text
-	 */
 	
 	@GetMapping(value = "listar")
 	@ResponseBody
