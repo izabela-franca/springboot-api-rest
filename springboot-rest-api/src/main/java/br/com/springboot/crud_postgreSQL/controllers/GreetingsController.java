@@ -21,10 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.springboot.crud_postgreSQL.model.Usuario;
 import br.com.springboot.crud_postgreSQL.repository.UsuarioRepository;
 
-/**
- *
- * A sample greetings controller to return greeting text
- */
+
 @RestController
 public class GreetingsController {
 
